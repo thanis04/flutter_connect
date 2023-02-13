@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
+import './question.dart';
 
 void main() => runApp(
       DevicePreview(
@@ -9,12 +10,23 @@ void main() => runApp(
 
 // void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  var questionsIndex = 0;
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    // throw UnimplementedError();
+    return _MyAppState();
+  }
+}
 
-  void answerQuetion() {
-    questionsIndex = questionsIndex + 1;
-    print(questionsIndex);
+class _MyAppState extends State<MyApp> {
+  var _questionsIndex = 0;
+
+  void _answerQuetion() {
+    setState(() {
+      _questionsIndex = _questionsIndex + 1;
+    });
+    print(_questionsIndex);
   }
 
   @override
@@ -30,15 +42,15 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text(questions[questionsIndex]),
-            ElevatedButton(child: Text('Answer 1'), onPressed: answerQuetion),
+            Question(questions[_questionsIndex]),
+            ElevatedButton(child: Text('Answer 1'), onPressed: _answerQuetion),
             ElevatedButton(
               child: Text('Answer 2'),
               onPressed: () {
                 print('Answer choosen');
               },
             ),
-            ElevatedButton(child: Text('Answer 2'), onPressed: answerQuetion),
+            ElevatedButton(child: Text('Answer 2'), onPressed: _answerQuetion),
           ],
         ),
       ),
