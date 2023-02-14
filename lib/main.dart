@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
 import './question.dart';
+import './answer.dart';
 
 void main() => runApp(
       DevicePreview(
@@ -32,8 +33,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var questions = [
-      'What\'s your favorite color?',
-      'What\'s your favvorite animale?'
+      {
+        'questionText': 'What\'s your favorite color?',
+        'answer': ['Black', 'Red', 'Blue', 'White']
+      },
+      {
+        'questionText': 'What\'s your favvorite animale?',
+        'answer': ['Rabbit', 'Lion', 'Tiger', 'Elephant']
+      },
+      {
+        'questionText': 'Who\'s your favvorite instructor?',
+        'answer': ['Knox', 'Mohamed', 'Rasmi', 'Thanis']
+      },
     ];
     return MaterialApp(
       home: Scaffold(
@@ -43,14 +54,9 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(questions[_questionsIndex]),
-            ElevatedButton(child: Text('Answer 1'), onPressed: _answerQuetion),
-            ElevatedButton(
-              child: Text('Answer 2'),
-              onPressed: () {
-                print('Answer choosen');
-              },
-            ),
-            ElevatedButton(child: Text('Answer 2'), onPressed: _answerQuetion),
+            Answer(_answerQuetion),
+            Answer(_answerQuetion),
+            Answer(_answerQuetion),
           ],
         ),
       ),
