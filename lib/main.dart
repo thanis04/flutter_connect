@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
-import './question.dart';
-import './answer.dart';
+import 'package:flutter_connect/quiz.dart';
+import 'package:flutter_connect/result.dart';
 
 void main() => runApp(
       DevicePreview(
@@ -21,6 +21,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _questions = const [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answer': ['Black', 'Red', 'Blue', 'White']
+    },
+    {
+      'questionText': 'What\'s your favvorite animale?',
+      'answer': ['Rabbit', 'Lion', 'Tiger', 'Elephant']
+    },
+    {
+      'questionText': 'Who\'s your favvorite instructor?',
+      'answer': ['Knox', 'Mohamed', 'Rasmi', 'Thanis']
+    },
+  ];
   var _questionsIndex = 0;
 
   void _answerQuetion() {
@@ -28,37 +42,27 @@ class _MyAppState extends State<MyApp> {
       _questionsIndex = _questionsIndex + 1;
     });
     print(_questionsIndex);
+    if (_questionsIndex < _questions.length) {
+      print('We have more question');
+    } else {
+      print('No more question');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      {
-        'questionText': 'What\'s your favorite color?',
-        'answer': ['Black', 'Red', 'Blue', 'White']
-      },
-      {
-        'questionText': 'What\'s your favvorite animale?',
-        'answer': ['Rabbit', 'Lion', 'Tiger', 'Elephant']
-      },
-      {
-        'questionText': 'Who\'s your favvorite instructor?',
-        'answer': ['Knox', 'Mohamed', 'Rasmi', 'Thanis']
-      },
-    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('Begin'),
         ),
-        body: Column(
-          children: [
-            Question(questions[_questionsIndex]),
-            Answer(_answerQuetion),
-            Answer(_answerQuetion),
-            Answer(_answerQuetion),
-          ],
-        ),
+        body: _questionsIndex < _questions.length
+            ? Quiz(
+                _questions,
+                _answerQuetion,
+                _questionsIndex,
+              )
+            : Result(),
       ),
     );
   }
